@@ -8,16 +8,17 @@ using namespace std;
 
 struct articulo
 {
-	int arti, año, contrato, idcodigo;
+	int arti=0, ano=0, idcodigo=0;
+	float precio=0, total=0, iva=0;
 	string nombre, clasif, caracter, descrip, genero;
-	float precio, total;
 };
-
+articulo compras[3];
+string clasif2, genero2;
+int opc, busqueda = 0, opc2;
 int main()
 {
 	//Use el float para que los precios o costos sean más especificos en las ventas como el caso de los que se ahorran 1 peso.
-	int i, opc, busqueda;
-	articulo compras[3];
+
 	do
 	{
 		printf("\t Software Planet \n");
@@ -30,98 +31,141 @@ int main()
 			for (int i = 0; i < 3; i++)
 			{
 				compras[i].idcodigo = 10000 + (i + 1);
-				int n = 1, busqueda;
-				printf("Ingrese el Numero (codigo) del articulo.\n");
-				scanf_s("%d", &compras[i].arti);
-
-				for (int k = 0; k >= n; k++)
+				printf("ID: %d\n", compras[i].idcodigo);
+					int n = 1, busqueda=0, listo=1;
+				do
 				{
-					if (compras[i].arti == compras[i - 1].arti || compras[i].arti == compras[i - (n - 1)].arti)
+					printf("Ingrese el Numero (codigo) del articulo.\n");
+					scanf_s("%d", &compras[i].arti);
+					if (compras[i].arti == compras[i - 1].arti || compras[i].arti == compras[i - 2].arti)
 					{
-						printf("El Codigo que introdujiste ya existe, favor de introducir uno nuevo:\n");
-						printf("Ingrese el Numero (codigo) del articulo.\n");
-						scanf_s("%d", &compras[i].arti);
-						fflush(stdin);
-						if (n <= 3)
-						{
-							n = n + 1;
-						}
+						printf("El Codigo ya existe, introduce uno nuevo.\n");
+
 					}
 					else
 					{
-						n = 0;
+						listo = 2;
 					}
-				}
+				} while (listo == 1);
 				printf("Ingrese el Nombre del articulo.\n");
 				cin.ignore();
 				getline(cin, compras[i].nombre);
-				printf("Introduce el ano del lanzamiento.\n");
-				scanf_s("%d", &compras[i].año);
-				printf("Introduce su calificacion.\n(A/B/B15/C/D)\n");
+				printf("Introduce el a%co del lanzamiento.\n", 164);
+				scanf_s("%d", &compras[i].ano);
+				printf("Introduce su calificacion.\nAA (Para todo publico) / A (Mayores de 3 a%cos) / B (Mayores de 12 a%cos) /C (Mayores de 15 a%cos) /D (Mayores de 18 a%cos) / R (Solo asultos)\n", 164, 164, 164, 164);
 				cin.ignore();
 				getline(cin, compras[i].clasif);
 				printf("Introduce su caracteristica.\n");
 				getline(cin, compras[i].caracter);
 				printf("Introduce la descripcion.\n");
 				getline(cin, compras[i].descrip);
-				printf("Introduce el genero.\n");
+				printf("Introduce el genero.\n FPS (First Person Shooter) / Surviver Horror / Aventuras / Ciencia Ficion / Terror / RPG / JRPG / Simulador / Plataformeo / Puzzle \n");
 				getline(cin, compras[i].genero);
-				printf("Introduce el precio unitario.\n"); //Me salio el mismo error con el tema de la estructura con la ultima repeticion de la variable i.
-				scanf_s("%d", &compras[i].precio);
-				compras[i].total = compras[i].precio * (1.16);
-				//Aun no logro poder hacer que la variable pueda multiplicarse por 1.16 y conseguir el 16% del iva, solamente me da el 0.
-				/*printf("Codigo: %d \n", compras[i].arti);
+				printf("Introduce el precio unitario.\n"); 
+				scanf_s("%f", &compras[i].precio);
+				compras[i].iva = compras[i].precio * .16;
+				compras[i].total = compras[i].precio + compras[i].iva;
+				printf("ID: %d \n", compras[i].idcodigo);
+				printf("Codigo: %d \n", compras[i].arti);
 				printf("Nombre: %s \n", compras[i].nombre.c_str());
-				printf("Ano: %d \n", compras[i].año);
+				printf("A%co: %d \n", 164, compras[i].ano);
 				printf("Calificacion: %s \n", compras[i].clasif.c_str());
 				printf("Caracteristicas: %s \n", compras[i].caracter.c_str());
 				printf("Descripcion: %s \n", compras[i].descrip.c_str());
 				printf("Genero: %s \n", compras[i].genero.c_str());
-				printf("Total: %d \n", compras[i].total);*/
+				printf("Subtotal: %f \n", compras[i].precio);
+				printf("Total: %f \n", compras[i].total);
+				
 			}
 			system("pause");
 			return main();
 
 		case 2://Modificar Articulo, permitira al creador modificar ciertos errores que se colocaron tras la introduccion del articulo, como la fecha, el nombre, la calificacion, precio o descripcion.
 			printf("Fuera de servicio, losentimos.");
+			system("pause");
+			return main();
 			break;
 
 		case 3://Eliminar Articulo, con esto hace que cuando una compra esta ya hecho o ya no hay una copia disponible lo dejamos de exponer al seleccionarlo.
-			printf("Ingrese el numero del Articulo.\n");
-			scanf_s("%d", &busqueda);
-			for (int i = 0; i < 3; i++);
-			{
-				if (busqueda == compras[i].arti)
-				{
-					compras[i].idcodigo = 0;
-					printf("El Articulo seleccionado a sido un exito");
-				}
-			}
+			printf("Fuera de servicio");
+			system("pause");
+			return main();
 			break;
 
 		case 4://Lista de Articulos, nos muestra los articulos colocados o introducidos por el dueño de la pagina.
-			printf("Ingrese el numero del Articulo.\n");
-			scanf_s("%d", &busqueda);
-			for (i = 0; i < 3; i++)
+			printf("De los 3 disponibles, eligue cual sera el que quieres buscar.\n");
+			printf("1.-Todos los Articulo.\n2.-Genero del Articulo.\n3.-Clasificacion del Articulo\n");
+			scanf_s("%d", &opc2);
+			switch (opc2)
 			{
-				if (compras[i].idcodigo != 0)
+			case 1:
+				for (int i = 0; i < 3; i++)
 				{
-					if (busqueda == compras[i].arti)
+					printf("ID: %d \n", compras[i].idcodigo);
+					printf("Numero del Articulo: %d.\n", compras[i].arti);
+					printf("Nombre del Articulo: %s.\n", compras[i].nombre.c_str());
+					printf("A%co del lanzamiento: %d.\n", 164, compras[i].ano);
+					printf("Calificacion: %s.\n", compras[i].clasif.c_str());
+					printf("Caracteristica: %s.\n", compras[i].caracter.c_str());
+					printf("Descripcion: %s.\n", compras[i].descrip.c_str());
+					printf("Genero: %s.\n", compras[i].genero.c_str());
+					printf("Subtotal: %f.\n", compras[i].precio);
+					printf("Total: %f.\n", compras[i].total);
+				}
+				system("pause");
+				break;
+			case 2:
+				printf("Introduce la calificacion de sus articulos especificos.\n");
+				printf("AA (Para todo publico) / A (Mayores de 3 a%cos) / B (Mayores de 12 a%cos) /C (Mayores de 15 a%cos) /D (Mayores de 18 a%cos) / R (Solo asultos)\n", 164, 164, 164, 164);
+				cin.ignore();
+				getline(cin, clasif2);
+				for (int i = 0; i < 3; i++)
+				{
+					if (clasif2.compare(compras[i].clasif) == 0)
 					{
+						printf("ID: %d \n", compras[i].idcodigo);
 						printf("Numero del Articulo: %d.\n", compras[i].arti);
 						printf("Nombre del Articulo: %s.\n", compras[i].nombre.c_str());
-						printf("Ano del lanzamiento: %d.\n", compras[i].año);
+						printf("A%co del lanzamiento: %d.\n", 164, compras[i].ano);
 						printf("Calificacion: %s.\n", compras[i].clasif.c_str());
 						printf("Caracteristica: %s.\n", compras[i].caracter.c_str());
 						printf("Descripcion: %s.\n", compras[i].descrip.c_str());
 						printf("Genero: %s.\n", compras[i].genero.c_str());
-						printf("Subtotal: %d.\n", compras[i].precio);
-						printf("Total: %d.\n", compras[i].total);
+						printf("Subtotal: %f.\n", compras[i].precio);
+						printf("Total: %f.\n", compras[i].total);
 					}
 				}
-			}
-			break;
+				system("pause");
+				return main();
+				break;
+			case 3:
+				printf("Introduce el Genero de los articulos especificos.\n");
+				printf("FPS (First Person Shooter) / Surviver Horror / Aventuras / Ciencia Ficion / Terror / RPG / JRPG / Simulador / Plataformeo / Puzzle \n");
+				cin.ignore();
+				getline(cin, genero2);
+				for (int i = 0; i < 3; i++)
+				{
+					if (genero2.compare(compras[i].genero) == 0)
+					{
+						printf("ID: %d \n", compras[i].idcodigo);
+						printf("Numero del Articulo: %d.\n", compras[i].arti);
+						printf("Nombre del Articulo: %s.\n", compras[i].nombre.c_str());
+						printf("A%co del lanzamiento: %d.\n", 164, compras[i].ano);
+						printf("Calificacion: %s.\n", compras[i].clasif.c_str());
+						printf("Caracteristica: %s.\n", compras[i].caracter.c_str());
+						printf("Descripcion: %s.\n", compras[i].descrip.c_str());
+						printf("Genero: %s.\n", compras[i].genero.c_str());
+						printf("Subtotal: %f.\n", compras[i].precio);
+						printf("Total: %f.\n", compras[i].total);
+					}
+				}
+				system("pause");
+				return main();
+				break;
+			default:
 
+				break;
+			}
 		case 5://Limpiar pantalla, una funcion no tan usado, pero en casos donde quieres borrar un guardado o lo escrito anteriormente para concentrarte en lo nuevo es muy beneficioso.
 			system("cls");
 			return main();
@@ -137,6 +181,4 @@ int main()
 
 		}
 	} while (opc != 6);
-	system("pause");
-
 }
