@@ -1,0 +1,493 @@
+#include <iostream>
+#include <conio.h>
+#include<stdio.h>
+#include<string>
+#include<string.h>
+#include<fstream>
+#include<stdlib.h>
+
+using namespace std;
+
+void alta();
+void modificar();
+void lectura();
+void eliminar();
+void archivo();
+int* arti, * year, * id, guardado, desc, n = 1, busqueda = 0, listo = 1;
+string* nombre, * clasif, * caracter, * genero, * descrip;
+float* precio, * iva, * total;
+
+int main()
+{
+	int opc;
+	printf("\t %c Software Planet %c %c \n", 175, 174, 169);
+	printf("\t\t Men%c \n", 163);
+	printf("1-Agregar Art%cculo.\n2-Modificar Art%cculo.\n3-Eliminar Art%cculo.\n4-Lista de Art%cculos Vigentes.\n5-Limpiar Pantalla.\n6-Salir.\n", 161, 161, 161, 161);
+	scanf_s("%d", &opc);
+	switch (opc)
+	{
+	case 1: //Agregaremos nuevos articulos para la tienda
+		alta();
+		system("pause");
+		return main();
+		break;
+	case 2:
+		modificar();
+		system("pause");
+		return main();
+		break;
+	case 3:
+		eliminar();
+		system("pause");
+		return main();
+		break;
+	case 4:
+		lectura();
+		system("pause");
+		return main();
+		break;
+	case 5:
+		system("cls");
+		return main();
+		break;
+	case 6:
+		archivo();
+		exit(1);
+		break;
+	default:
+		printf("No se encontro la herramienta que estabas buscando, ingrese solamente los que estan disponibles en el menu.\n");
+		return main();
+		break;
+	}
+
+	return 0;
+}
+
+void alta()
+{
+	printf("\nIngresa el n%cmero de Art%cculos que desea introducir.\n", 163, 161);
+	scanf_s("%d", &guardado);
+	id = new int[guardado];
+	arti = new int[guardado];
+	nombre = new string[guardado];
+	year = new int[guardado];
+	clasif = new string[guardado];
+	caracter = new string[guardado];
+	descrip = new string[guardado];
+	genero = new string[guardado];
+	precio = new float[guardado];
+	iva = new float[guardado];
+	total = new float[guardado];
+
+	for (int i = 0; i < guardado; i++)
+	{
+		id[i] = 10000 + (i + 1);
+		printf("\nID: %d\n\n", id[i]);
+		do
+		{
+			printf("Ingrese el N%cmero (c%cdigo) del art%cculo.\n", 163, 162, 161);
+			scanf_s("%d", &arti[i]);
+			if (arti[i] == arti[i - 1] || arti[i] == arti[i - 2])
+			{
+				printf("El C%cdigo ya existe, introduce uno nuevo.\n", 162);
+				listo = 1;
+			}
+			else
+			{
+				listo = 2;
+			}
+		} while (listo == 1);
+
+		/*do
+		{
+			if (guardado[i] != guardado[i - n])
+			{
+				n = n + 1;
+			}
+			else
+			{
+				printf("El articulo ya existe, ingrese otro");
+			}
+		} while (n < guardado);*/
+
+		printf("\nIngrese el Nombre del art%cculo.\n", 161);
+		cin.ignore();
+		getline(cin, nombre[i]);
+		printf("\nIntroduce el a%co del lanzamiento.\n", 164);
+		scanf_s("%d", &year[i]);
+		printf("\nIntroduce su calificaci%cn.\nAA (Para todo p%cblico) / A (Mayores de 3 a%cos) / B (Mayores de 12 a%cos) /C (Mayores de 15 a%cos) /D (Mayores de 18 a%cos) / R (Solo adultos)\n", 162, 163, 164, 164, 164, 164);
+		cin.ignore();
+		getline(cin, clasif[i]);
+		printf("\nIntroduce su caracter%cstica.\n", 161);
+		getline(cin, caracter[i]);
+		printf("\nIntroduce la descripci%cn.\n", 162);
+		getline(cin, descrip[i]);
+		printf("\nIntroduce el g%cnero.\nFPS (First Person Shooter) / Surviver Horror / Aventuras / Ciencia Ficion / Terror / RPG / JRPG / Simulador / Plataformeo / Puzzle \n", 130);
+		getline(cin, genero[i]);
+		printf("\nIntroduce el precio unitario.\n");
+		scanf_s("%f", &precio[i]);
+		iva[i] = precio[i] * .16;
+		total[i] = precio[i] + iva[i];
+		/*printf("ID: %d \n", id[i]);
+		printf("Codigo: %d \n", arti[i]);
+		printf("Nombre: %s \n", nombre[i].c_str());
+		printf("A%co: %d \n", 164, year[i]);
+		printf("Calificacion: %s \n", clasif[i].c_str());
+		printf("Caracteristicas: %s \n", caracter[i].c_str());
+		printf("Descripcion: %s \n", descrip[i].c_str());
+		printf("Genero: %s \n", genero[i].c_str());
+		printf("Subtotal: %f \n", precio[i]);
+		printf("Iva: %f\n", iva[i]);
+		printf("Total: %f \n", total[i]);*/
+		
+		/*do //Causa crasheo
+		{
+			if ((guardado - 1) == 1)
+			{
+				printf("\nLe gustaria introducir otro Articulo? \n1.- Si. \n2.- No.\n");
+				scanf_s("%d", &desc);
+				if (desc == 1)
+				{
+					guardado = guardado + 1;
+				}
+			}
+			else
+			{
+				printf("El articulo ya existe, intente con otro.");
+			}
+		} while (desc != 1 && desc != 2);*/
+		/*if ((guardado - 1) == 1)
+		{
+			int desicion;
+			printf("Desea ingresar otro articulo?\n1.- Si.\n2.- No.\n ");
+			scanf_s("%d", &desicion);
+			if (desicion == 1)
+			{
+				guardado = guardado + 1;
+			}
+		}*/
+	}
+
+}
+
+void modificar()
+{
+
+	int modif, opc2;
+
+	//switch tarea para el proyecto final, usar la funcion para crear diferentes casa en la cual permita una mejor direccion a la modificacion de un articulo.
+	printf("%cCu%cl de est%cs opciones desea implementar para modificar el art%cculo?\n1-Nombre del videojuego.\n2-A%co\n3-Clasificaci%cn.\n4-Caracter%csitca.\n5-Descripci%cn.\n6-G%cnero.\n7-Precio.\n8-Todo el Art%cculo.\n9-Salir.\n", 168, 160, 160, 161,164, 162, 161, 162, 130, 161);
+	scanf_s("%d", &opc2);
+	switch (opc2)
+	{
+	case 1:
+
+		do
+		{
+			printf("\nIngrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Ingrese el Nombre del art%cculo.\n", 161);
+				cin.ignore();
+				getline(cin, nombre[i]);
+			}
+		}
+		break;
+	case 2:
+		do
+		{
+			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Introduce el a%co del lanzamiento.\n", 164);
+				scanf_s("%d", &year[i]);
+			}
+		}
+		break;
+	case 3:
+		do
+		{
+			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Introduce su calificaci%cn.\nAA (Para todo p%cblico) / A (Mayores de 3 a%cos) / B (Mayores de 12 a%cos) /C (Mayores de 15 a%cos) /D (Mayores de 18 a%cos) / R (Solo adultos)\n", 162, 163, 164, 164, 164, 164);
+				cin.ignore();
+				getline(cin, clasif[i]);
+			}
+		}
+		break;
+	case 4:
+		do
+		{
+			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Introduce su caracter%cstica.\n", 161);
+				cin.ignore();
+				getline(cin, caracter[i]);
+			}
+		}
+		break;
+	case 5:
+		do
+		{
+			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Introduce la descripci%cn.\n", 162);
+				cin.ignore();
+				getline(cin, descrip[i]);
+			}
+		}
+		break;
+	case 6:
+		do
+		{
+			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Introduce el g%cnero.\nFPS (First Person Shooter) / Surviver Horror / Aventuras / Ciencia Ficion / Terror / RPG / JRPG / Simulador / Plataformeo / Puzzle \n", 130);
+				cin.ignore();
+				getline(cin, genero[i]);
+			}
+		}
+		break;
+	case 7:
+		do
+		{
+			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Introduce el precio unitario.\n");
+				scanf_s("%f", &precio[i]);
+				iva[i] = precio[i] * .16;
+				total[i] = precio[i] + iva[i];
+			}
+		}
+		break;
+	case 8:
+
+		do
+		{
+			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
+			scanf_s("%d", &modif);
+		} while (modif == 0);
+
+		for (int i = 0; i < guardado; i++)
+		{
+			if (modif == arti[i])
+			{
+				printf("Ingrese el Nombre del art%cculo.\n", 161);
+				cin.ignore();
+				getline(cin, nombre[i]);
+				printf("Introduce el a%co del lanzamiento.\n", 164);
+				scanf_s("%d", &year[i]);
+				printf("Introduce su calificaci%cn.\nAA (Para todo p%cblico) / A (Mayores de 3 a%cos) / B (Mayores de 12 a%cos) /C (Mayores de 15 a%cos) /D (Mayores de 18 a%cos) / R (Solo adultos)\n", 162, 163, 164, 164, 164, 164);
+				cin.ignore();
+				getline(cin, clasif[i]);
+				printf("Introduce su caracter%cstica.\n", 161);
+				getline(cin, caracter[i]);
+				printf("Introduce la descripci%cn.\n", 162);
+				getline(cin, descrip[i]);
+				printf("Introduce el g%cnero.\nFPS (First Person Shooter) / Surviver Horror / Aventuras / Ciencia Ficion / Terror / RPG / JRPG / Simulador / Plataformeo / Puzzle \n", 130);
+				getline(cin, genero[i]);
+				printf("Introduce el precio unitario.\n");
+				scanf_s("%f", &precio[i]);
+				iva[i] = precio[i] * .16;
+				total[i] = precio[i] + iva[i];
+			}
+		}
+		break;
+	case 9:
+		printf("Esperamos que hayamos sido de ayuda.\n");
+		break;
+	default:
+		printf("No se encontro la herramiento que estabas buscando, ingrese solamente los que estan disponibles en el menu.\n");
+		return modificar();
+		break;
+	}
+
+
+}
+
+void lectura()
+{
+	int opc3;
+	string busc;
+	printf("1-Clasificaci%cn.\n2-G%cnero.\n3-Todos los Art%cculos vigentes.\n4-Salir.\n", 162, 130, 161);
+	scanf_s("%d", &opc3);
+	switch (opc3)
+	{
+	case 1:
+
+		printf("Ingrese la clasifcaci%cn a buscar:\n", 162);
+		cin.ignore();
+		getline(cin, busc);
+
+		for (int i = 0; i < guardado; i++)
+		{
+			if (clasif[i] == busc)
+			{
+				if (arti[i] != 0)
+				{
+					printf("Art%cculo: %d\n",161, arti[i]);
+					printf("A%co: %d\n", 164, year[i]);
+					printf("Videojuego: %s\n", nombre[i].c_str());
+					printf("Clasificaci%cn: %s\n",162, clasif[i].c_str());
+					printf("Caracter%cstica: %s\n",161, caracter[i].c_str());
+					printf("Descripci%cn: %s\n",162, descrip[i].c_str());
+					printf("G%cnero: %s\n", 130, genero[i].c_str());
+					printf("Precio: %f\n", precio[i]);
+					printf("Iva: %f\n", iva[i]);
+					printf("Total: %f\n\n", total[i]);
+
+				}
+			}
+		}
+		break;
+	case 2:
+
+		printf("Ingrese el genero a buscar:\n");
+		cin.ignore();
+		getline(cin, busc);
+
+		for (int i = 0; i < guardado; i++)
+		{
+			if (genero[i] == busc)
+			{
+				if (arti[i] != 0)
+				{
+					printf("Art%cculo: %d\n", 161, arti[i]);
+					printf("A%co: %d\n", 164, year[i]);
+					printf("Videojuego: %s\n", nombre[i].c_str());
+					printf("Clasificaci%cn: %s\n", 162, clasif[i].c_str());
+					printf("Caracter%cstica: %s\n", 161, caracter[i].c_str());
+					printf("Descripci%cn: %s\n", 162, descrip[i].c_str());
+					printf("G%cnero: %s\n", 130, genero[i].c_str());
+					printf("Precio: %f\n", precio[i]);
+					printf("Iva: %f\n", iva[i]);
+					printf("Total: %f\n\n", total[i]);
+
+				}
+			}
+		}
+		break;
+	case 3:
+		for (int i = 0; i < guardado; i++)
+		{
+			if (arti[i] != 0)
+			{
+				printf("Art%cculo: %d\n", 161, arti[i]);
+				printf("A%co: %d\n", 164, year[i]);
+				printf("Videojuego: %s\n", nombre[i].c_str());
+				printf("Clasificaci%cn: %s\n", 162, clasif[i].c_str());
+				printf("Caracter%cstica: %s\n", 161, caracter[i].c_str());
+				printf("Descripci%cn: %s\n", 162, descrip[i].c_str());
+				printf("G%cnero: %s\n", 130, genero[i].c_str());
+				printf("Precio: %f\n", precio[i]);
+				printf("Iva: %f\n", iva[i]);
+				printf("Total: %f\n\n", total[i]);
+
+			}
+		}
+		break;
+	case 4:
+		break;
+	default:
+		printf("Lamentamos decirle que no se encontro la funcion que usted decidio implementar, vuelva a introducir los que estan disponibles en el menu.\n");
+		system("pause");
+		return lectura();
+		break;
+	}
+}
+
+void eliminar()
+{
+	int eliminar;
+	printf("\nIntroduce el codigo del articulo que desea eliminar.\n");
+	scanf_s("%d", &eliminar);
+
+	for (int i = 0; i < guardado; i++)
+	{
+		if (eliminar == arti[i])
+		{
+			arti[i] = 0;
+			printf("\nEliminado.\n");
+		}
+	}
+}
+
+void archivo()
+{
+	ofstream archiv;
+	string listarticulo;
+
+	listarticulo = "ListaART";
+
+	archiv.open(listarticulo.c_str(), ios::out);
+
+	if (archiv.fail())
+	{
+		printf("Losentimos, no se logro crear el archivo");
+		system("pause");
+		exit(1);
+	}
+
+	archiv << "ID CODIGO" << "\t";
+	archiv << "ARTICULO" << "\t";
+	archiv << "NOMBRE" << "\t";
+	archiv << "A%cO" << "\t", 165;
+	archiv << "CLASIFICACION" << "\t";
+	archiv << "CARACTERISTICA" << "\t";
+	archiv << "DESCRIPCION" << "\t";
+	archiv << "GENERO" << "\t";
+	archiv << "PRECIO" << "\t";
+	archiv << "IVA" << "\t";
+	archiv << "TOTAL" << "\n";
+
+	for (int i = 0; i < guardado; i++)
+	{
+		archiv << id[i] << "\t\t";
+		archiv << arti[i] << "\t\t\t";
+		archiv << nombre[i] << "\t";
+		archiv << year[i] << "\t";
+		archiv << clasif[i] << "\t\t\t\t";
+		archiv << caracter[i] << "\t\t\t";
+		archiv << descrip[i] << "\t\t";
+		archiv << genero[i] << "\t";
+		archiv << precio[i] << "\t";
+		archiv << iva[i] << "\t";
+		archiv << total[i] << "\t" << "\n";
+	}
+
+	archiv.close();
+}
