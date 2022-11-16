@@ -1,27 +1,27 @@
-#include <iostream>
-#include <conio.h>
-#include<stdio.h>
-#include<string>
-#include<string.h>
-#include<fstream>
-#include<stdlib.h>
+#include <iostream> //Formamos el int main y su fuente para las demas funciones como introducir e imprimir variables y cadenas.
+#include <conio.h> //Permite al programa funciones como el cin y cls en guardar y limpiar lo ya guardado.
+#include<stdio.h> //Funciona para hacer saltos de linea y guarde las cadenas.
+#include<string> //La fuente principal para introducir las cadenas.
+#include<string.h> //Otra alternativa para las funciones de las cadenas.
+#include<fstream> //Crea al programa almacenar los punteros activos y colocarlos en un archivo con su respectivo propiedad y guardarlo.
+#include<stdlib.h> //Añade otros lenguajes y bibliotecas estandares para el funcionamiento del c++.
 
-using namespace std;
+using namespace std; //Crea la capacidad de hacer un guardado de lineas dependiendo del caracter o variable a introducir.
 
 void alta();
 void modificar();
 void lectura();
 void eliminar();
 void archivo();
-int* arti, * year, * id, guardado, desc, n = 1, busqueda = 0, listo = 1;
+int* arti, * year, * id, guardado, desc, n = 1, busqueda = 0, listo = 1; //Introduciremos los punteros para el guardado.
 string* nombre, * clasif, * caracter, * genero, * descrip;
 float* precio, * iva, * total;
 
 int main()
 {
 	int opc;
-	printf("\t %c Software Planet %c %c \n", 175, 174, 169);
-	printf("\t\t Men%c \n", 163);
+	printf("\t %c Software Planet %c %c \n", 175, 174, 169); //%c es un caracter y con la tabla ACII permite introducir hasta 255 caracteres disponibles.
+	printf("\t\t Men%c \n", 163); // Un simbolo muy peculiar jejeje
 	printf("1-Agregar Art%cculo.\n2-Modificar Art%cculo.\n3-Eliminar Art%cculo.\n4-Lista de Art%cculos Vigentes.\n5-Limpiar Pantalla.\n6-Salir.\n", 161, 161, 161, 161);
 	scanf_s("%d", &opc);
 	switch (opc)
@@ -31,30 +31,30 @@ int main()
 		system("pause");
 		return main();
 		break;
-	case 2:
+	case 2: //Implementamos herramientas para modificar algunas cosas que no nos convencen o por error de los articulos conocidos.
 		modificar();
 		system("pause");
 		return main();
 		break;
-	case 3:
+	case 3: //Elimina las lecturas de articulos que no sirvan.
 		eliminar();
 		system("pause");
 		return main();
 		break;
-	case 4:
+	case 4: //Permite al usuario leer los articulos activos o guardados en nuestro catalogo.
 		lectura();
 		system("pause");
 		return main();
 		break;
-	case 5:
+	case 5: //Limpia la pantalla y elimina la basura del sistema.
 		system("cls");
 		return main();
 		break;
-	case 6:
+	case 6: //Sale del programa y permite guardar las variables y cadenas activas.
 		archivo();
 		exit(1);
 		break;
-	default:
+	default: //Este se activa si sobrepasa del numero disponible del Switch implementado.
 		printf("No se encontro la herramienta que estabas buscando, ingrese solamente los que estan disponibles en el menu.\n");
 		return main();
 		break;
@@ -66,11 +66,11 @@ int main()
 void alta()
 {
 	printf("\nIngresa el n%cmero de Art%cculos que desea introducir.\n", 163, 161);
-	scanf_s("%d", &guardado);
-	id = new int[guardado];
-	arti = new int[guardado];
-	nombre = new string[guardado];
-	year = new int[guardado];
+	scanf_s("%d", &guardado); //El & Funciona para que el operador introduzca la ubicacion del guardado.
+	id = new int[guardado];   //Los New creamos una bolsa de guardado individual que permite ser más especifico si se le introduce correctamente.
+	arti = new int[guardado]; // Es igual con la cadena string, solo que a diferencia de la variable se usara getline como introduccion de la cadena.
+	nombre = new string[guardado];  //A diferencia de la variable se usara el scanf_s y %d con & para ubicar mejor sus variables.
+	year = new int[guardado];  //Cuando la variable tiene que ser más preciso se usara el %f para que sus decimales sean notable y más preciso en los precios.
 	clasif = new string[guardado];
 	caracter = new string[guardado];
 	descrip = new string[guardado];
@@ -79,7 +79,7 @@ void alta()
 	iva = new float[guardado];
 	total = new float[guardado];
 
-	for (int i = 0; i < guardado; i++)
+	for (int i = 0; i < guardado; i++) //Creamos un ciclo para crear la cantidad que requirio el usuario y en adelante que se usara para las demas funciones o herramientas.
 	{
 		id[i] = 10000 + (i + 1);
 		printf("\nID: %d\n\n", id[i]);
@@ -87,7 +87,7 @@ void alta()
 		{
 			printf("Ingrese el N%cmero (c%cdigo) del art%cculo.\n", 163, 162, 161);
 			scanf_s("%d", &arti[i]);
-			if (arti[i] == arti[i - 1] || arti[i] == arti[i - 2])
+			if (arti[i] == arti[i - 1] || arti[i] == arti[i - 2]) //Un detector de repeticion de hasta 3 numeros del ultimo al reciente, no logre que se lograra no repetir los demas articulos.
 			{
 				printf("El C%cdigo ya existe, introduce uno nuevo.\n", 162);
 				listo = 1;
@@ -98,7 +98,7 @@ void alta()
 			}
 		} while (listo == 1);
 
-		/*do
+		/*do //Una funcion que no logre resolver
 		{
 			if (guardado[i] != guardado[i - n])
 			{
@@ -110,7 +110,7 @@ void alta()
 			}
 		} while (n < guardado);*/
 
-		printf("\nIngrese el Nombre del art%cculo.\n", 161);
+		printf("\nIngrese el Nombre del art%cculo.\n", 161); //Dependiendo del numero es la cadena que tocara guardar en ese momento.
 		cin.ignore();
 		getline(cin, nombre[i]);
 		printf("\nIntroduce el a%co del lanzamiento.\n", 164);
@@ -122,13 +122,13 @@ void alta()
 		getline(cin, caracter[i]);
 		printf("\nIntroduce la descripci%cn.\n", 162);
 		getline(cin, descrip[i]);
-		printf("\nIntroduce el g%cnero.\nFPS (First Person Shooter) / Surviver Horror / Aventuras / Ciencia Ficion / Terror / RPG / JRPG / Simulador / Plataformeo / Puzzle \n", 130);
+		printf("\nIntroduce el g%cnero.\nFPS (First Person Shooter) / Surviver Horror / Aventuras / Ciencia Ficci%cn / Terror / RPG / JRPG / Simulador / Plataformeo / Puzzle \n", 130, 162);
 		getline(cin, genero[i]);
 		printf("\nIntroduce el precio unitario.\n");
 		scanf_s("%f", &precio[i]);
 		iva[i] = precio[i] * .16;
 		total[i] = precio[i] + iva[i];
-		/*printf("ID: %d \n", id[i]);
+		/*printf("ID: %d \n", id[i]);  //Una manera más rapida y accecible de si los guardados son correcto o faltan toques para correguir.
 		printf("Codigo: %d \n", arti[i]);
 		printf("Nombre: %s \n", nombre[i].c_str());
 		printf("A%co: %d \n", 164, year[i]);
@@ -140,7 +140,7 @@ void alta()
 		printf("Iva: %f\n", iva[i]);
 		printf("Total: %f \n", total[i]);*/
 		
-		/*do //Causa crasheo
+		/*do //Causa crasheo, al usar la implementacion
 		{
 			if ((guardado - 1) == 1)
 			{
@@ -170,7 +170,7 @@ void alta()
 
 }
 
-void modificar()
+void modificar() //Aqui accedemos a la cadena para poder rehacer algunas cosas que no se logro convencer, como el nombre o el precio.
 {
 
 	int modif, opc2;
@@ -178,19 +178,19 @@ void modificar()
 	//switch tarea para el proyecto final, usar la funcion para crear diferentes casa en la cual permita una mejor direccion a la modificacion de un articulo.
 	printf("%cCu%cl de est%cs opciones desea implementar para modificar el art%cculo?\n1-Nombre del videojuego.\n2-A%co\n3-Clasificaci%cn.\n4-Caracter%csitca.\n5-Descripci%cn.\n6-G%cnero.\n7-Precio.\n8-Todo el Art%cculo.\n9-Salir.\n", 168, 160, 160, 161,164, 162, 161, 162, 130, 161);
 	scanf_s("%d", &opc2);
-	switch (opc2)
+	switch (opc2) 
 	{
-	case 1:
+	case 1: //Se modificara el nombre
 
 		do
 		{
 			printf("\nIngrese el n%cmero de art%cculo a modificar: \n", 163, 161);
-			scanf_s("%d", &modif);
-		} while (modif == 0);
+			scanf_s("%d", &modif); //Se usara el codigo del articulo para que sea más accesible y sencillo al usuario.
+		} while (modif == 0); //Si el numero es 0 se auto anulara y regresaran al menu.
 
 		for (int i = 0; i < guardado; i++)
 		{
-			if (modif == arti[i])
+			if (modif == arti[i]) //Cuando la cadena o variable individual es identico a la cadena o variable guardada, permitira acceder a esa parte de la cadena o variable y se encontrara una modificacion.
 			{
 				printf("Ingrese el Nombre del art%cculo.\n", 161);
 				cin.ignore();
@@ -198,7 +198,7 @@ void modificar()
 			}
 		}
 		break;
-	case 2:
+	case 2: //Año del articulo
 		do
 		{
 			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
@@ -213,7 +213,7 @@ void modificar()
 			}
 		}
 		break;
-	case 3:
+	case 3: //Clasificacion del articulo
 		do
 		{
 			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
@@ -229,7 +229,7 @@ void modificar()
 			}
 		}
 		break;
-	case 4:
+	case 4: // Caracteristica del articulo.
 		do
 		{
 			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
@@ -245,7 +245,7 @@ void modificar()
 			}
 		}
 		break;
-	case 5:
+	case 5: //Descripcion dek articulo
 		do
 		{
 			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
@@ -261,7 +261,7 @@ void modificar()
 			}
 		}
 		break;
-	case 6:
+	case 6: //Genero del articulo
 		do
 		{
 			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
@@ -277,7 +277,7 @@ void modificar()
 			}
 		}
 		break;
-	case 7:
+	case 7: //Precio del articulo
 		do
 		{
 			printf("Ingrese el n%cmero de art%cculo a modificar: \n", 163, 161);
@@ -294,7 +294,7 @@ void modificar()
 			}
 		}
 		break;
-	case 8:
+	case 8: //Todo el articulo.
 
 		do
 		{
@@ -302,9 +302,9 @@ void modificar()
 			scanf_s("%d", &modif);
 		} while (modif == 0);
 
-		for (int i = 0; i < guardado; i++)
+		for (int i = 0; i < guardado; i++) 
 		{
-			if (modif == arti[i])
+			if (modif == arti[i]) //Solo se podra acceder si el numero del articulo es identico al de modificar.
 			{
 				printf("Ingrese el Nombre del art%cculo.\n", 161);
 				cin.ignore();
@@ -332,7 +332,7 @@ void modificar()
 		break;
 	default:
 		printf("No se encontro la herramiento que estabas buscando, ingrese solamente los que estan disponibles en el menu.\n");
-		return modificar();
+		return modificar(); //Permite regresar al void y no al meno para que se pueda volver a intentar sin equivocarse.
 		break;
 	}
 
@@ -353,11 +353,11 @@ void lectura()
 		cin.ignore();
 		getline(cin, busc);
 
-		for (int i = 0; i < guardado; i++)
+		for (int i = 0; i < guardado; i++) //se usa el mismo que las otras funciones.
 		{
-			if (clasif[i] == busc)
+			if (clasif[i] == busc) //Si la clasificacion individual es correcta se leera los que son identicos.
 			{
-				if (arti[i] != 0)
+				if (arti[i] != 0) //Si el articulo es diferente de 0 se podra leer, sino se salta y se considera como eliminado.
 				{
 					printf("Art%cculo: %d\n",161, arti[i]);
 					printf("A%co: %d\n", 164, year[i]);
@@ -440,7 +440,11 @@ void eliminar()
 	{
 		if (eliminar == arti[i])
 		{
-			arti[i] = 0;
+			arti[i] = 0; //Convierte el articulo en 0, evitando que se pueda eliminar.
+			year[i] = 0;
+			precio[i] = 0;
+			iva[i] = 0;
+			total[i] = 0;
 			printf("\nEliminado.\n");
 		}
 	}
@@ -448,21 +452,21 @@ void eliminar()
 
 void archivo()
 {
-	ofstream archiv;
-	string listarticulo;
+	ofstream archiv; //Creamos la base y direccion del archivo.
+	string listarticulo; //Las cadenas necesarios para crear la propiedad del articulo.
 
-	listarticulo = "ListaART.txt";
+	listarticulo = "ListaART.txt"; //Creamos la caracteristica y propiedad del archivo.
 
 	archiv.open(listarticulo.c_str(), ios::out);
 
-	if (archiv.fail())
+	if (archiv.fail()) //Si el guardado no sale con exito.
 	{
 		printf("Losentimos, no se logro crear el archivo");
 		system("pause");
 		exit(1);
 	}
 
-	archiv << "ID CODIGO" << "\t";
+	archiv << "ID CODIGO" << "\t"; //Aqui introduciremos nuestra base para el guardado de variavle y cadenas.
 	archiv << "ARTICULO" << "\t";
 	archiv << "NOMBRE" << "\t";
 	archiv << "A%cO" << "\t", 165;
@@ -474,7 +478,7 @@ void archivo()
 	archiv << "IVA" << "\t";
 	archiv << "TOTAL" << "\n";
 
-	for (int i = 0; i < guardado; i++)
+	for (int i = 0; i < guardado; i++) //Se usuara el ciclo para colocar los guardados en su respectivo posicion.
 	{
 		archiv << id[i] << "\t\t";
 		archiv << arti[i] << "\t\t\t";
@@ -489,5 +493,5 @@ void archivo()
 		archiv << total[i] << "\t" << "\n";
 	}
 
-	archiv.close();
+	archiv.close(); //Se cierra el archivo.
 }
