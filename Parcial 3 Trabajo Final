@@ -451,7 +451,7 @@ void archivo()
 	ofstream archiv;
 	string listarticulo;
 
-	listarticulo = "ListaART";
+	listarticulo = "ListaART.txt";
 
 	archiv.open(listarticulo.c_str(), ios::out);
 
